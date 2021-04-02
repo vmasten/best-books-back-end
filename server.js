@@ -30,6 +30,7 @@ vince.save();
 app.get('/', (req, res) => res.send("heyo"));
 app.get('/books', getBooks);
 app.post('/books', createBook)
+app.delete('/books/:index', deleteBook)
 
 async function getBooks(request, response) {
   const email = request.query.email;
@@ -48,6 +49,22 @@ async function createBook(request, response) {
     item.books.push(newBook);
     item.save();
     response.status(200).send(item.books);
+  })
+}
+
+async function deleteBook(request, response) {
+  const index = parseInt(request.params.index);
+  const email = request.body.email;
+  await User.findOne({email}, (err, item) => {
+    if(err) return console.error(err);
+    
+    const newBooks = item.books.filter((book, i) => {
+      return i !== index;
+    });
+    
+    item.books = newBooks;
+    item.save();
+    response.status(200).send('done.');
   })
 }
 
