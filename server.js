@@ -54,7 +54,7 @@ async function createBook(request, response) {
 
 async function deleteBook(request, response) {
   const index = parseInt(request.params.index);
-  const email = request.body.email;
+  const email = request.query.email;
   await User.findOne({email}, (err, item) => {
     if(err) return console.error(err);
     
