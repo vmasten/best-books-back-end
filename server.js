@@ -73,7 +73,6 @@ async function deleteBook(request, response) {
 
 async function updateBook(request, response) {
   const index = parseInt(request.params.index);
-  console.log(index);
   const { email, name, description, status } = request.body;
   const updatedBook = {name: name, description: description, status: status}
   
